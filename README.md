@@ -1,14 +1,19 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# 📱 Aplicación de Expensas
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+¡Bienvenido! 🚀 Estoy desarrollando una **aplicación de expensas** como parte de mi aprendizaje de Kotlin Multiplatform. Este proyecto es mi primer acercamiento al desarrollo multiplataforma con tecnologías modernas de Android.
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## 🛠️ Tecnologías y Arquitectura
 
+Estoy explorando y aplicando:
+- **Kotlin Multiplatform (KMP)**: Para compartir código entre Android e iOS.
+- **Jetpack Compose**: Para construir una interfaz de usuario declarativa y moderna en Android.
+- **Arquitectura MVVM**: Para una mejor separación de responsabilidades y escalabilidad.
+- **API Rest**: Consumo de datos desde un backend.
+- **Base de datos SQLDelight**: Para almacenamiento local con SQL tipado en Kotlin.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## 📖 Aprendizaje y Referencias
+
+Este proyecto forma parte de mi proceso de aprendizaje y experimentación. Estoy adquiriendo conocimientos a través de **Udemy**, donde sigo cursos especializados en Kotlin Multiplatform y desarrollo de aplicaciones modernas.
+
+---
+Este README evolucionará a medida que avance en mi aprendizaje y el proyecto tome forma. ¡Cualquier sugerencia o consejo es bienvenido! 😊
