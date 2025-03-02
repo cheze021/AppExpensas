@@ -1,5 +1,8 @@
 package ui
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,9 +21,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -59,25 +67,73 @@ fun ExpensesScreen() {
 }
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ExpensesTotalHeader(total: Double) {
-    Card(shape = RoundedCornerShape(30), backgroundColor = Color.Black, elevation = 5.dp) {
-        Box(
-            modifier = Modifier.fillMaxWidth().height(130.dp).padding(16.dp),
-            contentAlignment = Alignment.CenterStart
-        ) {
-            Text(
-                text = "$$total",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.ExtraBold,
-                color = Color.White
-            )
+    var expanded by rememberSaveable { mutableStateOf(false) }
 
-            Text(
-                modifier = Modifier.align(Alignment.CenterEnd),
-                text = "USD",
-                color = Color.Gray
-            )
+    val height by animateDpAsState(
+        if (expanded) 130.dp else 50.dp,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        )
+    )
+
+    Card(
+        shape = RoundedCornerShape(30.dp),
+        backgroundColor = Color.Black,
+        elevation = 5.dp,
+        onClick = { expanded = !expanded }
+    ) {
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp),
+                verticalAlignment = Alignment.Top
+            ) {
+
+                Text(
+                    text = "Caja de Ahorro Dólares",
+                    color = Color.White
+                )
+
+            }
+
+            Box(
+                modifier = Modifier.fillMaxWidth().height(height).padding(16.dp),
+                contentAlignment = Alignment.CenterStart
+            ) {
+                if (expanded) {
+                    Text(
+                        text = "$$total",
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = Color.White
+                    )
+
+                    Text(
+                        modifier = Modifier.align(Alignment.CenterEnd),
+                        text = "USD",
+                        color = Color.Gray
+                    )
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp, horizontal = 16.dp)
+                    .align(Alignment.BottomEnd),
+                contentAlignment = Alignment.BottomEnd
+            ) {
+                Text(
+                    text = if (expanded) "Ocultar Saldo" else "Mostrar Saldo",
+                    color = Color.LightGray
+                )
+            }
+
         }
     }
 }
@@ -140,7 +196,7 @@ fun ExpensesItem(expense: Expense, onExpenseClick: (expense: Expense) -> Unit) {
 
             Column(
                 modifier = Modifier.weight(1f).padding(start = 8.dp)
-            ){
+            ) {
                 Text(
                     text = expense.category.name,
                     fontWeight = FontWeight.ExtraBold,
