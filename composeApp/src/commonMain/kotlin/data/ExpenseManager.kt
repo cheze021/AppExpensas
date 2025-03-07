@@ -61,6 +61,13 @@ object ExpenseManager {
         }
     }
 
+    fun deleteExpense(expense: Expense) {
+        val index = fakeExpenseList.indexOfFirst { it.id == expense.id }
+        if(index != -1) {
+            fakeExpenseList.removeAt(index)
+        }
+    }
+
     fun getCategories(): List<ExpenseCategory> {
         return listOf(
             ExpenseCategory.GROCERIES,
