@@ -40,11 +40,12 @@ import androidx.compose.ui.unit.sp
 import data.ExpenseManager
 import getColorsTheme
 import model.Expense
+import presentacion.ExpensesUiState
 import kotlin.math.exp
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ExpensesScreen(onExpenseClick: (expense: Expense) -> Unit) {
+fun ExpensesScreen(uiState: ExpensesUiState, onExpenseClick: (expense: Expense) -> Unit) {
 
     val colors = getColorsTheme()
 
@@ -61,7 +62,7 @@ fun ExpensesScreen(onExpenseClick: (expense: Expense) -> Unit) {
             }
         }
 
-        items(ExpenseManager.fakeExpenseList) { expense ->
+        items(uiState.expenses) { expense ->
             ExpensesItem(expense = expense, onExpenseClick = onExpenseClick)
         }
     }
