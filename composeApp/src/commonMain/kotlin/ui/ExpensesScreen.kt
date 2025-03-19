@@ -57,7 +57,7 @@ fun ExpensesScreen(uiState: ExpensesUiState, onExpenseClick: (expense: Expense) 
             Column(
                 modifier = Modifier.background(colors.backgroundColor)
             ) {
-                ExpensesTotalHeader(1234.56)
+                ExpensesTotalHeader(uiState.total)
                 AllExpensesHeader()
             }
         }
@@ -97,7 +97,7 @@ fun ExpensesTotalHeader(total: Double) {
             ) {
 
                 Text(
-                    text = "Caja de Ahorro Dólares",
+                    text = "Gastos acumulados",
                     color = Color.White
                 )
 
@@ -131,7 +131,7 @@ fun ExpensesTotalHeader(total: Double) {
                 contentAlignment = Alignment.BottomEnd
             ) {
                 Text(
-                    text = if (expanded) "Ocultar Saldo" else "Mostrar Saldo",
+                    text = if (expanded) "Ocultar Total" else "Mostrar Total",
                     color = Color.LightGray
                 )
             }
