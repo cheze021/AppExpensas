@@ -49,6 +49,10 @@ kotlin {
             api("moe.tlaster:precompose:1.6.2")
             api("moe.tlaster:precompose-viewmodel:1.6.2")
         }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
     }
 }
 
