@@ -1,6 +1,8 @@
 package org.example.appexpensas
 
 import androidx.compose.ui.window.ComposeUIViewController
+import com.expenseApp.db.AppDatabase
+import data.DatabaseDriverFactory
 import di.appModule
 import org.koin.core.context.startKoin
 
@@ -8,6 +10,6 @@ fun MainViewController() = ComposeUIViewController { App() }
 
 fun initKoin() {
     startKoin {
-        modules(appModule())
+        modules(appModule(AppDatabase.invoke(DatabaseDriverFactory().createDriver())))
     }.koin
 }
