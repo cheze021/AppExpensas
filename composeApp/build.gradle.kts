@@ -60,6 +60,9 @@ kotlin {
             implementation("io.insert-koin:koin-compose")
 
             api("moe.tlaster:precompose-koin:1.5.10")
+
+            // Naiper Logs
+            implementation("io.github.aakira:napier:2.6.1")
         }
 
         commonTest.dependencies {
