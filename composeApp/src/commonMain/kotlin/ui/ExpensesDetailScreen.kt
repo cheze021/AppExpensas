@@ -63,7 +63,8 @@ import model.ExpenseCategory
 fun ExpensesDetailScreen(
     expenseToEdit: Expense? = null,
     categoryList: List<ExpenseCategory> = emptyList(),
-    addExpenseAndNavigateBack: (Expense) -> Unit
+    addExpenseAndNavigateBack: (Expense) -> Unit,
+    deleteExpenseAndNavigateBack: (Expense) -> Unit
 ) {
     val colors = getColorsTheme()
     var price by rememberSaveable { mutableStateOf(expenseToEdit?.amount ?: 0.0) }
@@ -146,6 +147,23 @@ fun ExpensesDetailScreen(
                     return@Button
                 }
                 Text(text = TitleTopBarTypes.ADD.value)
+            }
+
+            // Only show delete button when editing an existing expense
+            if (expenseToEdit != null) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(
+                    modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(45)),
+                    onClick = {
+                        deleteExpenseAndNavigateBack(expenseToEdit)
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color.Red,
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text(text = TitleTopBarTypes.DELETE.value)
+                }
             }
         }
     }

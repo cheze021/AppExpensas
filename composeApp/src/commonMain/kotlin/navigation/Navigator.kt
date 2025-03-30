@@ -39,16 +39,28 @@ fun Navigation(navigator: Navigator) {
 
         scene(route = "/addExpenses/{id}?") { backStackEntry ->
             val idFromPath = backStackEntry.path<Long>("id")
-            val expenseToEditOrAdd = idFromPath?.let { id -> viewModel.getExpenseWithID(id) }
-
-            ExpensesDetailScreen(expenseToEdit = expenseToEditOrAdd, categoryList = viewModel.getCategories()) { expense ->
-                if(expenseToEditOrAdd == null) {
-                    viewModel.addNewExpense(expense)
-                } else {
-                    viewModel.editExpense(expense)
-                }
-                navigator.popBackStack()
+            val expenseToEditOrAdd = try {
+                idFromPath?.let { id -> viewModel.getExpenseWithID(id) }
+            } catch (e: NoSuchElementException) {
+                null
             }
+
+            ExpensesDetailScreen(
+                expenseToEdit = expenseToEditOrAdd,
+                categoryList = viewModel.getCategories(),
+                addExpenseAndNavigateBack = { expense ->
+                    if(expenseToEditOrAdd == null) {
+                        viewModel.addNewExpense(expense)
+                    } else {
+                        viewModel.editExpense(expense)
+                    }
+                    navigator.popBackStack()
+                },
+                deleteExpenseAndNavigateBack = { expense ->
+                    viewModel.deleteExpense(expense)
+                    navigator.popBackStack()
+                }
+            )
         }
     }
 
