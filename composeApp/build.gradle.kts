@@ -81,6 +81,11 @@ kotlin {
             implementation("app.cash.sqldelight:native-driver:2.0.1")
             implementation("co.touchlab:stately-common:2.0.5")
         }
+        iosMain.dependencies {
+            // SQLDelight
+            implementation("app.cash.sqldelight:native-driver:2.0.1")
+            implementation("co.touchlab:stately-common:2.0.5")
+        }
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)
