@@ -19,38 +19,38 @@ class ExpensesViewModel(private val repo: ExpenseRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ExpensesUiState())
     val uiState = _uiState.asStateFlow()
-    private val allExpenses = repo.getAllExpenses()
+    private var allExpenses: MutableList<Expense> = mutableListOf()
 
     init {
         getAllExpenses()
     }
 
-    private fun getAllExpenses() {
+    private fun updateExpenseList() {
         viewModelScope.launch {
+            allExpenses = repo.getAllExpenses().toMutableList()
             updateState()
         }
     }
 
+    private fun getAllExpenses() {
+        repo.getAllExpenses()
+        updateExpenseList()
+    }
+
     fun addNewExpense(expense: Expense) {
-        viewModelScope.launch {
-            repo.addNewExpense(expense = expense)
-            updateState()
-        }
+        repo.addNewExpense(expense = expense)
+        updateExpenseList()
     }
 
 
     fun editExpense(expense: Expense) {
-        viewModelScope.launch {
-            repo.editExpense(expense = expense)
-            updateState()
-        }
+        repo.editExpense(expense = expense)
+        updateExpenseList()
     }
 
     fun deleteExpense(expense: Expense) {
-        viewModelScope.launch {
-            repo.deleteExpense(expense = expense)
-            updateState()
-        }
+        repo.deleteExpense(expense = expense)
+        updateExpenseList()
     }
 
     private fun updateState() {
