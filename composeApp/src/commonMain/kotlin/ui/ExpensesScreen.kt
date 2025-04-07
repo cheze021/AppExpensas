@@ -202,7 +202,7 @@ fun ExpensesItem(expense: Expense, onExpenseClick: (expense: Expense) -> Unit) {
     val colors = getColorsTheme()
 
     Card(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 2.dp).clickable {
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 2.dp, vertical = 2.dp).clickable {
             onExpenseClick(expense)
         },
         backgroundColor = colors.colorExpenseItem,
