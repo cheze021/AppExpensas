@@ -38,17 +38,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import data.ExpenseManager
 import getColorsTheme
 import model.Expense
 import presentacion.ExpensesUiState
+import utils.SwipeToDeleteContainer
 import kotlin.math.exp
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ExpensesScreen(uiState: ExpensesUiState, onExpenseClick: (expense: Expense) -> Unit) {
+fun ExpensesScreen(
+    uiState: ExpensesUiState,
+    onExpenseClick: (expense: Expense) -> Unit,
+    onDeleteExpense: (expense: Expense) -> Unit
+) {
 
     val colors = getColorsTheme()
 
@@ -63,23 +69,43 @@ fun ExpensesScreen(uiState: ExpensesUiState, onExpenseClick: (expense: Expense) 
         }
 
         is ExpensesUiState.Success -> {
-            LazyColumn(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                stickyHeader {
-                    Column(
-                        modifier = Modifier.background(colors.backgroundColor)
-                    ) {
-                        ExpensesTotalHeader(uiState.total)
-                        AllExpensesHeader()
+            if(uiState.expenses.isNotEmpty()) {
+                LazyColumn(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    stickyHeader {
+                        Column(
+                            modifier = Modifier.background(colors.backgroundColor)
+                        ) {
+                            ExpensesTotalHeader(uiState.total)
+                            AllExpensesHeader()
+                        }
+                    }
+
+                    items(items = uiState.expenses, key = { it.id }) { expense ->
+                        SwipeToDeleteContainer(
+                            item = expense,
+                            onDelete = onDeleteExpense
+                        ) {
+                            ExpensesItem(expense = expense, onExpenseClick = onExpenseClick)
+                        }
                     }
                 }
-
-                items(uiState.expenses) { expense ->
-                    ExpensesItem(expense = expense, onExpenseClick = onExpenseClick)
+            } else {
+                Box(
+                    modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = "No expenses found. Please add your first one with the '+' symbol down below",
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.body1
+                    )
                 }
             }
+
         }
 
         is ExpensesUiState.Error -> {
@@ -202,7 +228,7 @@ fun ExpensesItem(expense: Expense, onExpenseClick: (expense: Expense) -> Unit) {
     val colors = getColorsTheme()
 
     Card(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 2.dp, vertical = 2.dp).clickable {
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 2.dp).clickable {
             onExpenseClick(expense)
         },
         backgroundColor = colors.colorExpenseItem,
