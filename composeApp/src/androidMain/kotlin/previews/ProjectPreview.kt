@@ -7,14 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import data.ExpenseManager
-import model.Expense
-import model.ExpenseCategory
 import presentacion.ExpensesUiState
 import ui.AllExpensesHeader
-import ui.AllExpensesScreen
+import ui.ViewAllExpensesScreen
 import ui.ExpensesItem
 import ui.ExpensesScreen
 import ui.ExpensesTotalHeader
+import ui.TotalExpensesValue
 
 @Preview(showBackground = true)
 @Composable
@@ -60,10 +59,18 @@ private fun ExpenseScreenPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun AllExpensesScreenPreview() {
-    AllExpensesScreen(
+    ViewAllExpensesScreen(
         uiState = ExpensesUiState.Success(
             expenses = ExpenseManager.fakeExpenseList,
             total = 0.0
         )
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TotalExpensesValuePreview() {
+    TotalExpensesValue(
+        expenses = ExpenseManager.fakeExpenseList
     )
 }

@@ -215,7 +215,7 @@ fun AllExpensesHeader(onViewAllClick: () -> Unit) {
         Button(
             shape = RoundedCornerShape(50),
             onClick = onViewAllClick,
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Gray),
+            colors = ButtonDefaults.buttonColors(backgroundColor = colors.backgroundColor),
             enabled = true
         ) {
             Text(text = "View All")
