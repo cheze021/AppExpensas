@@ -53,7 +53,8 @@ import kotlin.math.exp
 fun ExpensesScreen(
     uiState: ExpensesUiState,
     onExpenseClick: (expense: Expense) -> Unit,
-    onDeleteExpense: (expense: Expense) -> Unit
+    onDeleteExpense: (expense: Expense) -> Unit,
+    onViewAllClick: () -> Unit
 ) {
 
     val colors = getColorsTheme()
@@ -79,7 +80,7 @@ fun ExpensesScreen(
                             modifier = Modifier.background(colors.backgroundColor)
                         ) {
                             ExpensesTotalHeader(uiState.total)
-                            AllExpensesHeader()
+                            AllExpensesHeader(onViewAllClick = onViewAllClick)
                         }
                     }
 
@@ -197,7 +198,7 @@ fun ExpensesTotalHeader(total: Double) {
 }
 
 @Composable
-fun AllExpensesHeader() {
+fun AllExpensesHeader(onViewAllClick: () -> Unit) {
     val colors = getColorsTheme()
 
     Row(
@@ -213,10 +214,9 @@ fun AllExpensesHeader() {
         )
         Button(
             shape = RoundedCornerShape(50),
-            onClick = {//Crear click mas adelante
-            },
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Gray),
-            enabled = false
+            onClick = onViewAllClick,
+            colors = ButtonDefaults.buttonColors(backgroundColor = colors.backgroundColor),
+            enabled = true
         ) {
             Text(text = "View All")
         }

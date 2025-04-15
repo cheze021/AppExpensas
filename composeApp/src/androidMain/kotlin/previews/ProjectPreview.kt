@@ -7,13 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import data.ExpenseManager
-import model.Expense
-import model.ExpenseCategory
 import presentacion.ExpensesUiState
 import ui.AllExpensesHeader
+import ui.ViewAllExpensesScreen
 import ui.ExpensesItem
 import ui.ExpensesScreen
 import ui.ExpensesTotalHeader
+import ui.TotalExpensesValue
 
 @Preview(showBackground = true)
 @Composable
@@ -28,7 +28,9 @@ private fun ExpensesTotalHeaderPreview() {
 @Composable
 private fun AllExpensesHeaderPreview() {
     Box(modifier = Modifier.padding(16.dp)) {
-        AllExpensesHeader()
+        AllExpensesHeader(
+            onViewAllClick = {}
+        )
     }
 }
 
@@ -49,6 +51,26 @@ private fun ExpenseScreenPreview() {
             total = 1052.00
         ),
         onExpenseClick = {},
-        onDeleteExpense = {}
+        onDeleteExpense = {},
+        onViewAllClick = {}
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AllExpensesScreenPreview() {
+    ViewAllExpensesScreen(
+        uiState = ExpensesUiState.Success(
+            expenses = ExpenseManager.fakeExpenseList,
+            total = 0.0
+        )
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TotalExpensesValuePreview() {
+    TotalExpensesValue(
+        expenses = ExpenseManager.fakeExpenseList
     )
 }

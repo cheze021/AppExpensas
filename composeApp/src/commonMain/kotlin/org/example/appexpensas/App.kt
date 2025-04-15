@@ -127,5 +127,10 @@ fun getTitleTopAppBar(navigator: Navigator): String {
         titleTopBar = TitleTopBarTypes.EDIT
     }
 
+    val isAllExpenses = navigator.currentEntry.collectAsState(null).value?.route?.route.equals("/allExpenses")
+    if(isAllExpenses) {
+        titleTopBar = TitleTopBarTypes.ALL_EXPENSES
+    }
+
     return titleTopBar.value
 }
