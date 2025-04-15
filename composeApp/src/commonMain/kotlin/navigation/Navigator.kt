@@ -12,6 +12,7 @@ import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.path
 import org.koin.core.parameter.parametersOf
 import presentacion.ExpensesViewModel
+import ui.AllExpensesScreen
 import ui.ExpensesDetailScreen
 import ui.ExpensesScreen
 
@@ -36,6 +37,9 @@ fun Navigation(navigator: Navigator) {
                 },
                 onDeleteExpense = { expense ->
                     viewModel.deleteExpense(expense)
+                },
+                onViewAllClick = {
+                    navigator.navigate("/allExpenses")
                 })
         }
 
@@ -62,6 +66,13 @@ fun Navigation(navigator: Navigator) {
                     viewModel.deleteExpense(expense)
                     navigator.popBackStack()
                 }
+            )
+        }
+
+        scene(route = "/allExpenses") {
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+            AllExpensesScreen(
+                uiState = uiState
             )
         }
     }

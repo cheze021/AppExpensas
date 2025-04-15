@@ -11,6 +11,7 @@ import model.Expense
 import model.ExpenseCategory
 import presentacion.ExpensesUiState
 import ui.AllExpensesHeader
+import ui.AllExpensesScreen
 import ui.ExpensesItem
 import ui.ExpensesScreen
 import ui.ExpensesTotalHeader
@@ -28,7 +29,9 @@ private fun ExpensesTotalHeaderPreview() {
 @Composable
 private fun AllExpensesHeaderPreview() {
     Box(modifier = Modifier.padding(16.dp)) {
-        AllExpensesHeader()
+        AllExpensesHeader(
+            onViewAllClick = {}
+        )
     }
 }
 
@@ -49,6 +52,18 @@ private fun ExpenseScreenPreview() {
             total = 1052.00
         ),
         onExpenseClick = {},
-        onDeleteExpense = {}
+        onDeleteExpense = {},
+        onViewAllClick = {}
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AllExpensesScreenPreview() {
+    AllExpensesScreen(
+        uiState = ExpensesUiState.Success(
+            expenses = ExpenseManager.fakeExpenseList,
+            total = 0.0
+        )
     )
 }
