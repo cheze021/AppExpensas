@@ -90,6 +90,9 @@ kotlin {
 
             // COROUTINE
             implementation(libs.kotlinx.coroutines.core)
+
+            // MATERIAL 3
+            implementation(compose.material3)
         }
         iosMain.dependencies {
             // SQLDelight
