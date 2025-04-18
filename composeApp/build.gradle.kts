@@ -93,6 +93,9 @@ kotlin {
 
             // MATERIAL 3
             implementation(compose.material3)
+
+            // KOALAPLOT
+            implementation("io.github.koalaplot:koalaplot-core:0.8.0")
         }
         iosMain.dependencies {
             // SQLDelight

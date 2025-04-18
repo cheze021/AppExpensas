@@ -5,5 +5,6 @@ enum class TitleTopBarTypes(val value: String) {
     ADD("Add Expense"),
     EDIT("Edit Expense"),
     DELETE("Delete Expense"),
-    ALL_EXPENSES("All Expenses")
+    ALL_EXPENSES("All Expenses"),
+    GRAPHICS("Graphics")
 }
