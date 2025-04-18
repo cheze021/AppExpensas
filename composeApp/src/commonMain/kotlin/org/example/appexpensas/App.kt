@@ -74,7 +74,7 @@ fun App() {
                                 when (route) {
                                     "addExpenses" -> navigator.navigate("/addExpenses")
                                     "allExpenses" -> navigator.navigate("/allExpenses")
-                                    "expensesGraphics" -> navigator.navigate("/")
+                                    "expensesGraphics" -> navigator.navigate("/expensesGraphic")
                                 }
                             },
                             closeDrawer = {
@@ -177,6 +177,12 @@ fun getTitleTopAppBar(navigator: Navigator): String {
     if(isAllExpenses) {
         titleTopBar = TitleTopBarTypes.ALL_EXPENSES
     }
+
+    val isExpensesGrapgics = navigator.currentEntry.collectAsState(null).value?.route?.route.equals("/expensesGraphic")
+    if(isExpensesGrapgics) {
+        titleTopBar = TitleTopBarTypes.GRAPHICS
+    }
+
 
     return titleTopBar.value
 }

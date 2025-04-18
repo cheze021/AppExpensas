@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.FoodBank
 import androidx.compose.material.icons.filled.House
 import androidx.compose.material.icons.filled.PartyMode
 import androidx.compose.material.icons.filled.ViewCozy
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.serialization.Serializable
 
@@ -38,3 +39,9 @@ enum class ExpenseCategory(val icon: ImageVector) {
     HOUSE(Icons.Default.House),
     OTHER(Icons.Default.ViewCozy)
 }
+
+data class CategoryStats(
+    val category: String,
+    val amount: Double,
+    val color: Color
+)

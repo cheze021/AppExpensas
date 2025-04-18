@@ -3,6 +3,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import model.ExpenseCategory
 
 @Composable
 fun AppTheme(content: @Composable () -> Unit) {
@@ -46,4 +47,14 @@ data class DarkModeColors(
     val textColor: Color,
     val addIconColor: Color,
     val colorArrowRound: Color
+)
+
+val categoryColors = mapOf(
+    ExpenseCategory.GROCERIES to Color(0xFFB5EAD7),
+    ExpenseCategory.HOUSE to Color(0xFFF6C1FF),
+    ExpenseCategory.PARTY to Color(0xFFAEC6CF),
+    ExpenseCategory.SNACKS to Color(0xFFD5AAFF),
+    ExpenseCategory.COFFEE to Color(0xFFFFF5BA),
+    ExpenseCategory.CAR to Color(0xFFFFD8B1),
+    ExpenseCategory.OTHER to Color(0xFFE2F0CB),
 )

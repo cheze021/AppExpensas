@@ -14,6 +14,7 @@ import org.koin.core.parameter.parametersOf
 import presentacion.ExpensesViewModel
 import ui.ViewAllExpensesScreen
 import ui.ExpensesDetailScreen
+import ui.ExpensesGraphicsScreen
 import ui.ExpensesScreen
 
 @Composable
@@ -72,6 +73,13 @@ fun Navigation(navigator: Navigator) {
         scene(route = "/allExpenses") {
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             ViewAllExpensesScreen(
+                uiState = uiState
+            )
+        }
+
+        scene(route = "/expensesGraphic") {
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+            ExpensesGraphicsScreen(
                 uiState = uiState
             )
         }

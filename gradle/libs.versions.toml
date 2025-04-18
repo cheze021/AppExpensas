@@ -17,6 +17,7 @@ kotlin = "2.1.0"
 uiTextAndroid = "1.7.8"
 ktor = "3.1.2"
 coroutines = "1.9.0"
+sliceCore = "1.0.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -39,6 +40,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 ktor-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialzation = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+androidx-slice-core = { group = "androidx.slice", name = "slice-core", version.ref = "sliceCore" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
