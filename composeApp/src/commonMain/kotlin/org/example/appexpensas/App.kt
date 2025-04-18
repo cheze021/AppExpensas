@@ -37,6 +37,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -131,7 +132,9 @@ fun App() {
                         floatingActionButton = {
                             if(!isEditOrAddExpenses) {
                                 FloatingActionButton(
-                                    modifier = Modifier.padding(8.dp),
+                                    modifier = Modifier
+                                        .padding(8.dp)
+                                        .alpha(0.8f),
                                     onClick = {
                                         navigator.navigate("/addExpenses")
                                     },
