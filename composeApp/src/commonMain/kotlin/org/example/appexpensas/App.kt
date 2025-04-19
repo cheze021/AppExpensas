@@ -126,7 +126,7 @@ fun App() {
                                     }
 
                                 },
-                                backgroundColor = colors.backgroundColor
+                                backgroundColor = colors.topAppBarColor
                             )
                         },
                         floatingActionButton = {

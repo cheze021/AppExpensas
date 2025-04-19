@@ -1,8 +1,11 @@
 package ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -37,6 +41,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -45,9 +50,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -76,6 +83,7 @@ fun ExpensesDetailScreen(
     )
     val keyboardController = LocalSoftwareKeyboardController.current
     val scope = rememberCoroutineScope()
+    val focusManager = LocalFocusManager.current
 
     LaunchedEffect(sheetState.targetValue) {
         if(sheetState.targetValue == ModalBottomSheetValue.Expanded) {
@@ -95,14 +103,24 @@ fun ExpensesDetailScreen(
             }
         }
     ) {
-        Column (modifier = Modifier.fillMaxSize().padding(vertical = 16.dp, horizontal = 8.dp)){
+        Column (modifier = Modifier
+            .fillMaxSize()
+            .background(colors.backgroundColor)
+            .padding(vertical = 16.dp, horizontal = 8.dp)
+            .clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() }
+            ) {
+                focusManager.clearFocus()
+            }
+        ){
             ExpenseAmount(
                 priceContent = price,
                 onPriceChange = { price = it },
                 keyboardController = keyboardController
             )
 
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             ExpenseTypeSelector(
                 categorySelected = categorySelected,
@@ -113,7 +131,7 @@ fun ExpensesDetailScreen(
                 }
             )
 
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             ExpenseDescription(
                 descriptionContent = description,
@@ -125,8 +143,11 @@ fun ExpensesDetailScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
+
             Button(
-                modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(45)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(25)),
                 onClick = {
                     val expense = Expense(
                         amount = price,
@@ -143,17 +164,29 @@ fun ExpensesDetailScreen(
                 enabled = price != 0.0 && description.isNotBlank() && expenseCategory.isNotBlank()
             ) {
                 expenseToEdit?.let {
-                    Text(text = TitleTopBarTypes.EDIT.value)
+                    Text(
+                        modifier = Modifier.padding(8.dp),
+                        text = TitleTopBarTypes.EDIT.value,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 16.sp
+                    )
                     return@Button
                 }
-                Text(text = TitleTopBarTypes.ADD.value)
+                Text(
+                    modifier = Modifier.padding(8.dp),
+                    text = TitleTopBarTypes.ADD.value,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 16.sp
+                )
             }
 
             // Only show delete button when editing an existing expense
             if (expenseToEdit != null) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(
-                    modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(45)),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(25)),
                     onClick = {
                         deleteExpenseAndNavigateBack(expenseToEdit)
                     },
@@ -162,7 +195,12 @@ fun ExpensesDetailScreen(
                         contentColor = Color.White
                     )
                 ) {
-                    Text(text = TitleTopBarTypes.DELETE.value)
+                    Text(
+                        modifier = Modifier.padding(8.dp),
+                        text = TitleTopBarTypes.DELETE.value,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 16.sp
+                    )
                 }
             }
         }
@@ -178,24 +216,37 @@ private fun ExpenseAmount(
     val colors = getColorsTheme()
     var text by rememberSaveable { mutableStateOf("$priceContent") }
     Column (
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(8.dp),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Center
     ){
-        Text(text = "Amount",
-            fontSize = 20.sp,
-            color = Color.Gray,
-            fontWeight = FontWeight.SemiBold
+        Text(
+            modifier = Modifier.padding(bottom = 4.dp),
+            text = "Amount",
+            fontSize = 18.sp,
+            color = Color.DarkGray,
+            fontWeight = FontWeight.Medium
         )
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "USD",
-                fontSize = 20.sp,
+        Row(
+            modifier = Modifier
+                .background(Color.White)
+                .border(
+                    border = BorderStroke(width = 1.dp, Color.LightGray),
+                    shape = RoundedCornerShape(16.dp)
+                )
+                .padding(4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "USD",
+                fontSize = 16.sp,
                 color = colors.textColor,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.Normal
             )
 
             TextField(
                 modifier = Modifier.weight(1f),
+                placeholder = { Text("0.00") },
                 value = text,
                 onValueChange = { newText ->
                     val numericText = newText.filter { it.isDigit() || it == '.' }
@@ -204,7 +255,8 @@ private fun ExpenseAmount(
                             val newValue = numericText.toDouble()
                             onPriceChange(newValue)
                             numericText
-                        } catch (e: NumberFormatException){
+                        } catch (e: NumberFormatException) {
+                            onPriceChange(0.0)
                             ""
                         }
                     } else {
@@ -224,18 +276,17 @@ private fun ExpenseAmount(
                 singleLine = true,
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = colors.textColor,
-                    backgroundColor = colors.backgroundColor,
+                    backgroundColor = Color.White,
                     focusedIndicatorColor = Color.Transparent,
                     focusedLabelColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                     unfocusedLabelColor = Color.Transparent
                 ),
-                textStyle = TextStyle(fontSize = 35.sp, fontWeight = FontWeight.ExtraBold)
+                textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Normal)
             )
         }
 
     }
-    Divider(color = Color.Black, thickness = 2.dp)
 }
 
 @Composable
@@ -245,37 +296,50 @@ private fun ExpenseTypeSelector(
 ) {
     val colors = getColorsTheme()
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.Center
+    Column (
+        modifier = Modifier.fillMaxWidth().padding(8.dp),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.Center
+    ){
+        Text(
+            modifier = Modifier.padding(bottom = 4.dp),
+            text = "Expenses made for",
+            fontSize = 18.sp,
+            color = Color.DarkGray,
+            fontWeight = FontWeight.Medium
+        )
+        Row(
+            modifier = Modifier
+                .background(Color.White)
+                .border(
+                    border = BorderStroke(width = 1.dp, Color.LightGray),
+                    shape = RoundedCornerShape(16.dp)
+                )
+                .padding(4.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                modifier = Modifier.padding(bottom = 16.dp),
-                text = "Expenses made for",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color.Gray
-            )
-            Text(
+                modifier = Modifier
+                    .weight(1f),
                 text = categorySelected,
                 fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.Normal,
                 color = colors.textColor
             )
+
+            IconButton(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(35)),
+                onClick = { openBottomSheet() }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowDown,
+                    contentDescription = "Arrow down icon",
+                    tint = colors.textColor
+                )
+            }
         }
-        IconButton(
-            modifier = Modifier.clip(RoundedCornerShape(35)).background(colors.colorArrowRound),
-            onClick = { openBottomSheet() }
-        ) {
-            Icon(
-                imageVector = Icons.Default.KeyboardArrowDown,
-                contentDescription = "Arrow down icon",
-                tint = colors.textColor
-            )
-        }
+
     }
 }
 
@@ -288,39 +352,56 @@ fun ExpenseDescription(
     var text by rememberSaveable { mutableStateOf(descriptionContent) }
     val colors = getColorsTheme()
 
-    Column {
+    Column (
+        modifier = Modifier.fillMaxWidth().padding(8.dp),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.Center
+    ) {
         Text(
+            modifier = Modifier.padding(bottom = 4.dp),
             text = "Description",
-            fontSize = 20.sp,
-            color = Color.Gray,
-            fontWeight = FontWeight.SemiBold
+            fontSize = 18.sp,
+            color = Color.DarkGray,
+            fontWeight = FontWeight.Medium
         )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = text,
-            onValueChange = { newText ->
-                if(newText.length <= 200){
-                    text = newText
-                    onDescriptionChange(newText)
-                }
-            },
-            singleLine = true,
-            colors = TextFieldDefaults.textFieldColors(
-                textColor = colors.textColor,
-                backgroundColor = colors.backgroundColor,
-                focusedIndicatorColor = Color.Transparent,
-                focusedLabelColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                unfocusedLabelColor = Color.Transparent
-            ),
-            textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    keyboardController?.hide()
-                }
+
+        Row(
+            modifier = Modifier
+                .background(Color.White)
+                .border(
+                    border = BorderStroke(width = 1.dp, Color.LightGray),
+                    shape = RoundedCornerShape(16.dp)
+                )
+                .padding(4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            TextField(
+                modifier = Modifier.fillMaxWidth().height(120.dp),
+                placeholder = { Text("Write a description...") },
+                value = text,
+                onValueChange = { newText ->
+                    if(newText.length <= 200){
+                        text = newText
+                        onDescriptionChange(newText)
+                    }
+                },
+                maxLines = 3,
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = colors.textColor,
+                    backgroundColor = Color.White,
+                    focusedIndicatorColor = Color.Transparent,
+                    focusedLabelColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    unfocusedLabelColor = Color.Transparent
+                ),
+                textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Normal),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        keyboardController?.hide()
+                    }
+                )
             )
-        )
-        Divider(color = Color.Black, thickness = 2.dp)
+        }
     }
 }
 
