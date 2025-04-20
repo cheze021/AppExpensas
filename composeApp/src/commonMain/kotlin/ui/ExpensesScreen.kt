@@ -142,7 +142,7 @@ fun ExpensesTotalHeader(total: Double) {
     Card(
         shape = RoundedCornerShape(30.dp),
         backgroundColor = Color.Black,
-        elevation = 5.dp,
+        elevation = 6.dp,
         onClick = { expanded = !expanded }
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
@@ -231,8 +231,9 @@ fun ExpensesItem(expense: Expense, onExpenseClick: (expense: Expense) -> Unit) {
         modifier = Modifier.fillMaxWidth().padding(horizontal = 2.dp).clickable {
             onExpenseClick(expense)
         },
-        backgroundColor = colors.colorExpenseItem,
-        shape = RoundedCornerShape(30)
+        backgroundColor = colors.cardColor,
+        shape = RoundedCornerShape(30),
+        elevation = 6.dp
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
@@ -241,7 +242,7 @@ fun ExpensesItem(expense: Expense, onExpenseClick: (expense: Expense) -> Unit) {
             Surface(
                 modifier = Modifier.size(50.dp),
                 shape = RoundedCornerShape(35),
-                color = colors.purple
+                color = colors.stoneBeige
             ) {
                 Image(
                     modifier = Modifier.padding(10.dp),

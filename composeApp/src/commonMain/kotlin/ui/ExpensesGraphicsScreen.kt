@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -24,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import categoryColors
+import getColorsTheme
 import io.github.koalaplot.core.pie.DefaultSlice
 import io.github.koalaplot.core.pie.PieChart
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
@@ -34,6 +36,9 @@ import kotlin.math.roundToInt
 @OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
 fun ExpensesGraphicsScreen(uiState: ExpensesUiState) {
+
+    val colorsTheme = getColorsTheme()
+
     when (uiState) {
         is ExpensesUiState.Loading -> {
             Text("Cargando datos...")
@@ -71,13 +76,13 @@ fun ExpensesGraphicsScreen(uiState: ExpensesUiState) {
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.dp).fillMaxSize()
             ) {
                 PieChart(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(300.dp)
-                        .padding(8.dp),
+                        .padding(4.dp),
                     values = values,
                     label = { index ->
                         Text(
@@ -94,11 +99,13 @@ fun ExpensesGraphicsScreen(uiState: ExpensesUiState) {
                     }
                 )
 
+                Spacer(modifier = Modifier.height(35.dp))
+
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 4.dp),
-                    backgroundColor = Color(0xFFFAFAFA),
+                    backgroundColor = colorsTheme.cardColor,
                     shape = RoundedCornerShape(5),
                     elevation = 6.dp
                 ) {

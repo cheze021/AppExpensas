@@ -1,7 +1,9 @@
 package org.example.appexpensas
 
 import AppTheme
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -201,6 +203,7 @@ fun AppDrawer(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .background(colors.topAppBarColor.copy(alpha = 0.7f))
                 .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
@@ -224,49 +227,55 @@ fun AppDrawer(
 
         HorizontalDivider(color = Color.LightGray, thickness = 1.dp)
 
-        NavigationDrawerItem(
-            label = { Text("Todas las expensas") },
-            selected = false,
-            onClick = {
-                onItemClick("allExpenses")
-                closeDrawer()
-            },
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Sort,
-                    contentDescription = "Dashboard icon"
-                )
-            }
-        )
+        Column (
+            modifier = Modifier
+                .fillMaxSize()
+                .background(colors.topAppBarColor.copy(alpha = 0.55f))
+        ) {
+            NavigationDrawerItem(
+                label = { Text("Todas las expensas") },
+                selected = false,
+                onClick = {
+                    onItemClick("allExpenses")
+                    closeDrawer()
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Sort,
+                        contentDescription = "Dashboard icon"
+                    )
+                }
+            )
 
-        NavigationDrawerItem(
-            label = { Text("Agregar una expensa") },
-            selected = false,
-            onClick = {
-                onItemClick("addExpenses")
-                closeDrawer()
-            },
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Dashboard icon"
-                )
-            }
-        )
+            NavigationDrawerItem(
+                label = { Text("Agregar una expensa") },
+                selected = false,
+                onClick = {
+                    onItemClick("addExpenses")
+                    closeDrawer()
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Dashboard icon"
+                    )
+                }
+            )
 
-        NavigationDrawerItem(
-            label = { Text("Gráfico de gastos") },
-            selected = false,
-            onClick = {
-                onItemClick("expensesGraphics")
-                closeDrawer()
-            },
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.BarChart,
-                    contentDescription = "Dashboard icon"
-                )
-            }
-        )
+            NavigationDrawerItem(
+                label = { Text("Gráfico de gastos") },
+                selected = false,
+                onClick = {
+                    onItemClick("expensesGraphics")
+                    closeDrawer()
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.BarChart,
+                        contentDescription = "Dashboard icon"
+                    )
+                }
+            )
+        }
     }
 }

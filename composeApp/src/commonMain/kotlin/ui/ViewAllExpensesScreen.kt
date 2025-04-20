@@ -83,9 +83,10 @@ fun CategoryExpensesCard(categoryName: String, expenses: List<Expense>) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 4.dp),
-        backgroundColor = colors.colorExpenseItem,
-        shape = RoundedCornerShape(10)
+            .padding(horizontal = 4.dp, vertical = 4.dp),
+        backgroundColor = colors.cardColor,
+        shape = RoundedCornerShape(10),
+        elevation = 6.dp
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
@@ -95,7 +96,7 @@ fun CategoryExpensesCard(categoryName: String, expenses: List<Expense>) {
                 Box(
                     modifier = Modifier
                         .size(50.dp)
-                        .background(colors.purple, shape = CircleShape),
+                        .background(colors.stoneBeige, shape = CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     icon?.let {
@@ -129,13 +130,15 @@ fun CategoryExpensesCard(categoryName: String, expenses: List<Expense>) {
                         text = expense.description,
                         fontSize = 14.sp,
                         color = Color.Gray,
+                        fontWeight = FontWeight.Medium,
                         modifier = Modifier.weight(1f)
                     )
 
                     Text(
                         text = "$${expense.amount}",
                         style = MaterialTheme.typography.body2,
-                        color = colors.textColor,
+                        color = Color.Gray,
+                        fontWeight = FontWeight.Medium,
                         modifier = Modifier.padding(start = 8.dp)
                     )
                 }
@@ -164,13 +167,15 @@ fun TotalExpensesValue(expenses: List<Expense>) {
         Text(
             text = "Total:",
             fontSize = 14.sp,
-            color = Color.DarkGray
+            color = colors.textColor,
+            fontWeight = FontWeight.SemiBold
         )
 
         Text(
             text = "$$totalAmount",
             style = MaterialTheme.typography.body2,
-            color = colors.textColor
+            color = colors.textColor,
+            fontWeight = FontWeight.SemiBold
         )
     }
 }
