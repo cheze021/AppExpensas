@@ -158,7 +158,7 @@ fun ExpensesDetailScreen(
                     addExpenseAndNavigateBack(expenseFromEdit ?: expense)
                 },
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = colors.purple,
+                    backgroundColor = colors.buttonEditAddColor,
                     contentColor = Color.White
                 ),
                 enabled = price != 0.0 && description.isNotBlank() && expenseCategory.isNotBlank()
@@ -191,7 +191,7 @@ fun ExpensesDetailScreen(
                         deleteExpenseAndNavigateBack(expenseToEdit)
                     },
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color.Red,
+                        backgroundColor = colors.buttonDeleteColor,
                         contentColor = Color.White
                     )
                 ) {
@@ -229,6 +229,7 @@ private fun ExpenseAmount(
         )
         Row(
             modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
                 .background(Color.White)
                 .border(
                     border = BorderStroke(width = 1.dp, Color.LightGray),
@@ -310,6 +311,7 @@ private fun ExpenseTypeSelector(
         )
         Row(
             modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
                 .background(Color.White)
                 .border(
                     border = BorderStroke(width = 1.dp, Color.LightGray),
@@ -367,6 +369,7 @@ fun ExpenseDescription(
 
         Row(
             modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
                 .background(Color.White)
                 .border(
                     border = BorderStroke(width = 1.dp, Color.LightGray),

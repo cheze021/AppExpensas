@@ -20,39 +20,48 @@ fun AppTheme(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun getColorsTheme() : DarkModeColors {
-    val isDarkMode = false
+fun getColorsTheme() : Colors {
 
-    val Purple = Color(0xFF6A66FF)
-    val ColorExpenseItem = if (isDarkMode) Color(0xFF090808) else Color(0xFFF1F1F1)
-    val BackgroundColor = if (isDarkMode) Color(0XFF1E1C1C) else Color(252,250,246)
-    val TextColor = if (isDarkMode) Color.White else Color.Black
-    val AddIconColor = if (isDarkMode) Purple else Color.Black
-    val ColorArrowRound = if (isDarkMode) Purple else Color.Gray.copy(alpha = .2f)
-    val ColorViewAllButton = Color(0xFFDCDCDC)
-    val TopAppBarColor = Color(242,238,230)
 
-    return DarkModeColors(
-        purple = Purple,
+    val StoneBeige = Color(190, 185, 175)
+    val ColorExpenseItem = Color(0xFFF1F1F1)
+    val BackgroundColor = Color(242, 240, 236)
+    val TextColor = Color(28, 28, 30)
+    val AddIconColor = Color(28, 28, 30)
+    val ColorArrowRound = Color.Gray.copy(alpha = .2f)
+    val ColorViewAllButton = Color(0xFFF5F5F5)
+    val TopAppBarColor = Color(220, 215, 205)
+    val ButtonEditAddColor = Color(136, 94, 74)
+    val ButtonDeleteColor = Color(253, 41, 47)
+    val CardColor = Color(0xFFFAFAFA)
+
+    return Colors(
+        stoneBeige = StoneBeige,
         colorExpenseItem = ColorExpenseItem,
         backgroundColor = BackgroundColor,
         textColor = TextColor,
         addIconColor = AddIconColor,
         colorArrowRound = ColorArrowRound,
         colorViewAllButton = ColorViewAllButton,
-        topAppBarColor = TopAppBarColor
+        topAppBarColor = TopAppBarColor,
+        buttonEditAddColor = ButtonEditAddColor,
+        buttonDeleteColor = ButtonDeleteColor,
+        cardColor = CardColor
     )
 }
 
-data class DarkModeColors(
-    val purple: Color,
+data class Colors(
+    val stoneBeige: Color,
     val colorExpenseItem: Color,
     val backgroundColor: Color,
     val textColor: Color,
     val addIconColor: Color,
     val colorArrowRound: Color,
     val colorViewAllButton: Color,
-    val topAppBarColor: Color
+    val topAppBarColor: Color,
+    val buttonEditAddColor: Color,
+    val buttonDeleteColor: Color,
+    val cardColor: Color
 )
 
 val categoryColors = mapOf(
