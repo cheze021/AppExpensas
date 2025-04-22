@@ -129,6 +129,7 @@ fun ExpensesScreen(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ExpensesTotalHeader(total: Double) {
+    val colors = getColorsTheme()
     var expanded by rememberSaveable { mutableStateOf(false) }
 
     val height by animateDpAsState(
@@ -141,7 +142,7 @@ fun ExpensesTotalHeader(total: Double) {
 
     Card(
         shape = RoundedCornerShape(30.dp),
-        backgroundColor = Color.Black,
+        backgroundColor = colors.buttonEditAddColor,
         elevation = 6.dp,
         onClick = { expanded = !expanded }
     ) {
@@ -175,7 +176,7 @@ fun ExpensesTotalHeader(total: Double) {
                     Text(
                         modifier = Modifier.align(Alignment.CenterEnd),
                         text = "USD",
-                        color = Color.Gray
+                        color = Color.White
                     )
                 }
             }
