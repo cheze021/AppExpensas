@@ -212,7 +212,7 @@ fun AllExpensesHeader(onViewAllClick: () -> Unit) {
     ) {
         Text(
             modifier = Modifier.weight(1f),
-            text = "All Expenses",
+            text = "Expensas",
             fontWeight = FontWeight.ExtraBold,
             fontSize = 20.sp,
             color = colors.textColor
@@ -223,7 +223,7 @@ fun AllExpensesHeader(onViewAllClick: () -> Unit) {
             colors = ButtonDefaults.buttonColors(backgroundColor = colors.colorViewAllButton),
             enabled = true
         ) {
-            Text(text = "View All")
+            Text(text = "Ver Todas")
         }
     }
 }
@@ -266,7 +266,7 @@ fun ExpensesItem(expense: Expense, onExpenseClick: (expense: Expense) -> Unit) {
                     .padding(start = 8.dp)
             ) {
                 Text(
-                    text = expense.category.name,
+                    text = expense.category.displayName.uppercase(),
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 18.sp,
                     color = colors.textColor

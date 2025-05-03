@@ -18,44 +18,51 @@ object ExpenseManager {
     val fakeExpenseList = mutableListOf(
         Expense(
             id = currentId++,
-            amount = 70.0,
-            category = ExpenseCategory.GROCERIES,
-            description = "Weekly buy",
+            amount = 1000.00,
+            category = ExpenseCategory.LUZ,
+            description = "UTE",
             date = randomPastDate()
         ),
         Expense(
             id = currentId++,
-            amount = 20.4,
-            category = ExpenseCategory.SNACKS,
-            description = "McDonalds",
+            amount = 750.00,
+            category = ExpenseCategory.INTERNET,
+            description = "Antel",
             date = randomPastDate()
         ),
         Expense(
             id = currentId++,
-            amount = 5000.0,
-            category = ExpenseCategory.CAR,
-            description = "Chevrolet Corsa",
+            amount = 500.00,
+            category = ExpenseCategory.SUPER,
+            description = "Surtido",
             date = randomPastDate()
         ),
         Expense(
             id = currentId++,
-            amount = 120.00,
-            category = ExpenseCategory.PARTY,
-            description = "Weekend party",
+            amount = 13650.00,
+            category = ExpenseCategory.ALQUILER,
+            description = "Alquiler apto",
             date = randomPastDate()
         ),
         Expense(
             id = currentId++,
-            amount = 25.0,
-            category = ExpenseCategory.HOUSE,
-            description = "Cleaning",
+            amount = 350.00,
+            category = ExpenseCategory.MERIENDAS,
+            description = "Merienda en Robusta",
             date = randomPastDate()
         ),
         Expense(
             id = currentId++,
-            amount = 15.0,
-            category = ExpenseCategory.OTHER,
-            description = "Services",
+            amount = 750.00,
+            category = ExpenseCategory.PEDIDOS_YA,
+            description = "Comida pedida",
+            date = randomPastDate()
+        ),
+        Expense(
+            id = currentId++,
+            amount = 350.00,
+            category = ExpenseCategory.OTROS,
+            description = "Servicios varios",
             date = randomPastDate()
         )
     )

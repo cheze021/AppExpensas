@@ -2,9 +2,9 @@ package data
 
 enum class TitleTopBarTypes(val value: String) {
     DASHBOARD("Dashboard"),
-    ADD("Add Expense"),
-    EDIT("Edit Expense"),
-    DELETE("Delete Expense"),
-    ALL_EXPENSES("All Expenses"),
-    GRAPHICS("Graphics")
+    ADD("Agregar Expensa"),
+    EDIT("Editar Expensa"),
+    DELETE("Eliminar Expensa"),
+    ALL_EXPENSES("Todas las expensas"),
+    GRAPHICS("Gráfica")
 }

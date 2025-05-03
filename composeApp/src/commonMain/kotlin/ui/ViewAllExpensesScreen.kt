@@ -45,7 +45,7 @@ fun ViewAllExpensesScreen(
             ) {
                 groupedExpenses.forEach { (category, expensesInCategory) ->
                     item {
-                        CategoryExpensesCard(category.name, expensesInCategory)
+                        CategoryExpensesCard(category.displayName.uppercase(), expensesInCategory)
                     }
                 }
             }
