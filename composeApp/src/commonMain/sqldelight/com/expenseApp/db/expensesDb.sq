@@ -2,18 +2,20 @@ CREATE TABLE ExpenseEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     amount REAL NOT NULL,
     categoryName TEXT NOT NULL,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    date TEXT NOT NULL
 );
 
 insert:
-INSERT INTO ExpenseEntity (amount, categoryName, description)
-VALUES (?,?,?);
+INSERT INTO ExpenseEntity (amount, categoryName, description, date)
+VALUES (?,?,?,?);
 
 update:
 UPDATE ExpenseEntity
 SET amount = ?,
     categoryName = ?,
-    description = ?
+    description = ?,
+    date = ?
 WHERE id = ?;
 
 delete:

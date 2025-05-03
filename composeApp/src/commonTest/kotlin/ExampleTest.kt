@@ -1,3 +1,4 @@
+import kotlinx.datetime.LocalDate
 import model.Expense
 import model.ExpenseCategory
 import kotlin.test.Test
@@ -37,7 +38,7 @@ class ExampleTest {
     fun expense_model_list(){
         // Given
         val expenseList = mutableListOf<Expense>()
-        val expense = Expense(id = 1, amount = 4.50, category = ExpenseCategory.CAR, description = "Combustible")
+        val expense = Expense(id = 1, amount = 4.50, category = ExpenseCategory.CAR, description = "Combustible", date = LocalDate(2025, 1, 10))
 
         // When
         expenseList.add(expense)
@@ -50,8 +51,8 @@ class ExampleTest {
     fun expense_model_param_success() {
         // Given
         val expenseList = mutableListOf<Expense>()
-        val expense = Expense(id = 1, amount = 4.50, category = ExpenseCategory.OTHER, description = "Combustible")
-        val expense2 = Expense(id = 2, amount = 8.340, category = ExpenseCategory.OTHER, description = "Limpieza")
+        val expense = Expense(id = 1, amount = 4.50, category = ExpenseCategory.OTHER, description = "Combustible", date = LocalDate(2025, 1, 10))
+        val expense2 = Expense(id = 2, amount = 8.340, category = ExpenseCategory.OTHER, description = "Limpieza", date = LocalDate(2025, 1, 10))
 
         // When
         expenseList.add(expense)
@@ -66,8 +67,8 @@ class ExampleTest {
     fun expense_model_param_fail() {
         // Given
         val expenseList = mutableListOf<Expense>()
-        val expense = Expense(id = 1, amount = 4.50, category = ExpenseCategory.CAR, description = "Combustible")
-        val expense2 = Expense(id = 2, amount = 8.340, category = ExpenseCategory.OTHER, description = "Limpieza")
+        val expense = Expense(id = 1, amount = 4.50, category = ExpenseCategory.CAR, description = "Combustible", date = LocalDate(2025, 1, 10))
+        val expense2 = Expense(id = 2, amount = 8.340, category = ExpenseCategory.OTHER, description = "Limpieza", date = LocalDate(2025, 1, 10))
 
         // When
         expenseList.add(expense)

@@ -63,6 +63,8 @@ import androidx.compose.ui.unit.sp
 import data.TitleTopBarTypes
 import getColorsTheme
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.toLocalDate
 import model.Expense
 import model.ExpenseCategory
 
@@ -78,6 +80,7 @@ fun ExpensesDetailScreen(
     var description by rememberSaveable { mutableStateOf(expenseToEdit?.description ?: "") }
     var expenseCategory by rememberSaveable { mutableStateOf(expenseToEdit?.category?.name ?: "") }
     var categorySelected by rememberSaveable { mutableStateOf(expenseToEdit?.category?.name ?: "Select a category") }
+    var date by rememberSaveable { mutableStateOf(expenseToEdit?.date?.toString() ?: "") }
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden
     )
@@ -152,7 +155,8 @@ fun ExpensesDetailScreen(
                     val expense = Expense(
                         amount = price,
                         category = ExpenseCategory.valueOf(expenseCategory),
-                        description = description
+                        description = description,
+                        date = LocalDate.parse(date)
                     )
                     val expenseFromEdit = expenseToEdit?.id?.let { expense.copy(id = it) }
                     addExpenseAndNavigateBack(expenseFromEdit ?: expense)
@@ -239,7 +243,7 @@ private fun ExpenseAmount(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "USD",
+                text = "UYU",
                 fontSize = 16.sp,
                 color = colors.textColor,
                 fontWeight = FontWeight.Normal
