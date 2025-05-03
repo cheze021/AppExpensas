@@ -65,11 +65,11 @@ data class Colors(
 )
 
 val categoryColors = mapOf(
-    ExpenseCategory.GROCERIES to Color(0xFFB5EAD7),
-    ExpenseCategory.HOUSE to Color(0xFFF6C1FF),
-    ExpenseCategory.PARTY to Color(0xFFAEC6CF),
-    ExpenseCategory.SNACKS to Color(0xFFD5AAFF),
-    ExpenseCategory.COFFEE to Color(0xFFFFF5BA),
-    ExpenseCategory.CAR to Color(0xFFFFD8B1),
-    ExpenseCategory.OTHER to Color(0xFFE2F0CB),
+    ExpenseCategory.LUZ to Color(0xFFB5EAD7),
+    ExpenseCategory.INTERNET to Color(0xFFF6C1FF),
+    ExpenseCategory.SUPER to Color(0xFFAEC6CF),
+    ExpenseCategory.PEDIDOS_YA to Color(0xFFD5AAFF),
+    ExpenseCategory.ALQUILER to Color(0xFFFFF5BA),
+    ExpenseCategory.MERIENDAS to Color(0xFFFFD8B1),
+    ExpenseCategory.OTROS to Color(0xFFE2F0CB),
 )

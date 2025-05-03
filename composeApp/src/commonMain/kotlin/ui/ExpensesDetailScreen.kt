@@ -79,7 +79,7 @@ fun ExpensesDetailScreen(
     var price by rememberSaveable { mutableStateOf(expenseToEdit?.amount ?: 0.0) }
     var description by rememberSaveable { mutableStateOf(expenseToEdit?.description ?: "") }
     var expenseCategory by rememberSaveable { mutableStateOf(expenseToEdit?.category?.name ?: "") }
-    var categorySelected by rememberSaveable { mutableStateOf(expenseToEdit?.category?.name ?: "Select a category") }
+    var categorySelected by rememberSaveable { mutableStateOf(expenseToEdit?.category?.displayName ?: "Seleccioná una categoría") }
     var date by rememberSaveable { mutableStateOf(expenseToEdit?.date?.toString() ?: "") }
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden
@@ -98,7 +98,7 @@ fun ExpensesDetailScreen(
         sheetState = sheetState,
         sheetContent = {
             CategoryBottomSheetContent(categoryList) {
-                categorySelected = it.name
+                categorySelected = it.displayName.uppercase()
                 expenseCategory = it.name
                 scope.launch {
                     sheetState.hide()
@@ -226,7 +226,7 @@ private fun ExpenseAmount(
     ){
         Text(
             modifier = Modifier.padding(bottom = 4.dp),
-            text = "Amount",
+            text = "Importe",
             fontSize = 18.sp,
             color = Color.DarkGray,
             fontWeight = FontWeight.Medium
@@ -308,7 +308,7 @@ private fun ExpenseTypeSelector(
     ){
         Text(
             modifier = Modifier.padding(bottom = 4.dp),
-            text = "Expenses made for",
+            text = "Gasto realizado para",
             fontSize = 18.sp,
             color = Color.DarkGray,
             fontWeight = FontWeight.Medium
@@ -365,7 +365,7 @@ fun ExpenseDescription(
     ) {
         Text(
             modifier = Modifier.padding(bottom = 4.dp),
-            text = "Description",
+            text = "Descripción",
             fontSize = 18.sp,
             color = Color.DarkGray,
             fontWeight = FontWeight.Medium
@@ -378,13 +378,12 @@ fun ExpenseDescription(
                 .border(
                     border = BorderStroke(width = 1.dp, Color.LightGray),
                     shape = RoundedCornerShape(16.dp)
-                )
-                .padding(4.dp),
+                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             TextField(
                 modifier = Modifier.fillMaxWidth().height(120.dp),
-                placeholder = { Text("Write a description...") },
+                placeholder = { Text("Escribe una descripción...") },
                 value = text,
                 onValueChange = { newText ->
                     if(newText.length <= 200){

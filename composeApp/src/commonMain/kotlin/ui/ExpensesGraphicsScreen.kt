@@ -67,7 +67,7 @@ fun ExpensesGraphicsScreen(uiState: ExpensesUiState) {
             val stats = grouped.map { (category, items) ->
                 val amount = items.sumOf { it.amount }
                 val color = categoryColors[category] ?: Color.Gray
-                CategoryStats(category.name, amount, color)
+                CategoryStats(category.displayName, amount, color)
             }
 
             val total = stats.sumOf { it.amount }
@@ -114,7 +114,7 @@ fun ExpensesGraphicsScreen(uiState: ExpensesUiState) {
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Text(
-                            text = "Category Graphics Reference",
+                            text = "Referencia de gastos por %",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
                             style = MaterialTheme.typography.subtitle1
