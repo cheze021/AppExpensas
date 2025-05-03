@@ -12,6 +12,7 @@ import io.ktor.client.request.put
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import kotlinx.datetime.LocalDate
 import model.Expense
 import model.ExpenseCategory
 import model.NetworkExpense
@@ -32,11 +33,12 @@ class ExpenseRepoImpl(
                     id = it.id,
                     amount = it.amount,
                     category = ExpenseCategory.valueOf(it.categoryName),
-                    description = it.description
+                    description = it.description,
+                    date = LocalDate.parse(it.date)
                 )
             }
             expenses.forEach {
-                queries.insert(it.amount, it.category.name, it.description)
+                queries.insert(it.amount, it.category.name, it.description, it.date.toString())
             }
 
             expenses
@@ -46,7 +48,8 @@ class ExpenseRepoImpl(
                     id = it.id,
                     amount = it.amount,
                     category = ExpenseCategory.valueOf(it.categoryName),
-                    description = it.description
+                    description = it.description,
+                    date = LocalDate.parse(it.date)
                 )
             }
         }
@@ -57,7 +60,8 @@ class ExpenseRepoImpl(
             queries.insert(
                 amount = expense.amount,
                 categoryName = expense.category.name,
-                description = expense.description
+                description = expense.description,
+                date = expense.date.toString()
             )
         }
 
@@ -67,7 +71,8 @@ class ExpenseRepoImpl(
                 NetworkExpense(
                     amount = expense.amount,
                     categoryName = expense.category.name,
-                    description = expense.description
+                    description = expense.description,
+                    date = expense.date.toString()
                 )
             )
         }
@@ -79,7 +84,8 @@ class ExpenseRepoImpl(
                 id = expense.id,
                 amount = expense.amount,
                 categoryName = expense.category.name,
-                description = expense.description
+                description = expense.description,
+                date = expense.date.toString()
             )
         }
 
@@ -90,7 +96,8 @@ class ExpenseRepoImpl(
                     id = expense.id,
                     amount = expense.amount,
                     categoryName = expense.category.name,
-                    description = expense.description
+                    description = expense.description,
+                    date = expense.date.toString()
                 )
             )
         }

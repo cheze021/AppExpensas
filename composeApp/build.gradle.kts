@@ -96,6 +96,9 @@ kotlin {
 
             // KOALAPLOT
             implementation("io.github.koalaplot:koalaplot-core:0.8.0")
+
+            // DATETIME
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
         }
         iosMain.dependencies {
             // SQLDelight

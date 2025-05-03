@@ -10,13 +10,15 @@ import androidx.compose.material.icons.filled.PartyMode
 import androidx.compose.material.icons.filled.ViewCozy
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 
 data class Expense(
     val id:Long = -1,
     val amount: Double,
     val category: ExpenseCategory,
-    val description: String
+    val description: String,
+    val date: LocalDate
 ) {
     val icon = category.icon
 
@@ -27,7 +29,8 @@ data class NetworkExpense(
     val id:Long = -1,
     val amount: Double,
     val categoryName: String,
-    val description: String
+    val description: String,
+    val date: String
 )
 
 enum class ExpenseCategory(val icon: ImageVector) {
