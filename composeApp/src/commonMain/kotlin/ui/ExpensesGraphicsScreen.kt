@@ -60,7 +60,7 @@ fun ExpensesGraphicsScreen(uiState: ExpensesUiState) {
             val categoryTotals = expenses.groupBy { it.category }
                 .mapValues { entry -> entry.value.sumOf { it.amount } } // Double
 
-            val labels = categoryTotals.keys.map { it.name }
+            val labels = categoryTotals.keys.map { it.displayName.uppercase() }
             val values = categoryTotals.values.map { it.toFloat() }
 
             val grouped = expenses.groupBy { it.category }

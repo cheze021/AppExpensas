@@ -98,7 +98,7 @@ fun ExpensesDetailScreen(
         sheetState = sheetState,
         sheetContent = {
             CategoryBottomSheetContent(categoryList) {
-                categorySelected = it.displayName.uppercase()
+                categorySelected = it.displayName
                 expenseCategory = it.name
                 scope.launch {
                     sheetState.hide()
@@ -443,6 +443,6 @@ private fun CategoryItem(category: ExpenseCategory, onCategorySelected: (Expense
             contentDescription = "Category Icon",
             contentScale = ContentScale.Crop
         )
-        Text(text = category.name)
+        Text(text = category.displayName.uppercase())
     }
 }

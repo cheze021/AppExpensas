@@ -42,7 +42,7 @@ data class NetworkExpense(
 enum class ExpenseCategory(val icon: ImageVector, val displayName: String) {
     LUZ(Icons.Default.Lightbulb, "Luz"),
     INTERNET(Icons.Default.Wifi, "Internet"),
-    SUPER(Icons.Default.ShoppingBasket, "Supermercado"),
+    SUPER(Icons.Default.ShoppingBasket, "Super"),
     ALQUILER(Icons.Default.Apartment, "Alquiler"),
     MERIENDAS(Icons.Default.Cookie, "Meriendas"),
     PEDIDOS_YA(Icons.Default.Moped, "Pedidos Ya"),
