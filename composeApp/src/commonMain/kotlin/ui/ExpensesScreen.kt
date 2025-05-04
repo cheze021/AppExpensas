@@ -104,7 +104,7 @@ fun ExpensesScreen(
                 ) {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = "No expenses found. Please add your first one with the '+' symbol down below",
+                        text = "No se encontraron expensas, por favor agrega una utilizando el menú lateral y la opción 'Agregar una expensa'",
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.body1
                     )
