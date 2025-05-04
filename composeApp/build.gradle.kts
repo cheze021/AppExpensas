@@ -99,6 +99,8 @@ kotlin {
 
             // DATETIME
             implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+            implementation("network.chaintech:kmp-date-time-picker:1.0.7")
+
         }
         iosMain.dependencies {
             // SQLDelight

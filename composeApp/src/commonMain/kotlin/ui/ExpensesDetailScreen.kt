@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -25,7 +26,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.ModalBottomSheetLayout
@@ -36,10 +36,11 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -54,7 +55,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -64,9 +64,12 @@ import data.TitleTopBarTypes
 import getColorsTheme
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.toLocalDate
 import model.Expense
 import model.ExpenseCategory
+import network.chaintech.kmp_date_time_picker.ui.datepicker.WheelDatePickerView
+import network.chaintech.kmp_date_time_picker.utils.DateTimePickerView
+import network.chaintech.kmp_date_time_picker.utils.WheelPickerDefaults
+import utils.formatDateString
 
 @Composable
 fun ExpensesDetailScreen(
@@ -80,7 +83,7 @@ fun ExpensesDetailScreen(
     var description by rememberSaveable { mutableStateOf(expenseToEdit?.description ?: "") }
     var expenseCategory by rememberSaveable { mutableStateOf(expenseToEdit?.category?.name ?: "") }
     var categorySelected by rememberSaveable { mutableStateOf(expenseToEdit?.category?.displayName ?: "Seleccioná una categoría") }
-    var date by rememberSaveable { mutableStateOf(expenseToEdit?.date?.toString() ?: "") }
+    var selectedDate by remember { mutableStateOf("") }
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden
     )
@@ -136,6 +139,14 @@ fun ExpensesDetailScreen(
 
             Spacer(modifier = Modifier.height(10.dp))
 
+
+            DateSelectorField(
+                selectedDate = selectedDate,
+                onDateSelected = { selectedDate = it }
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
             ExpenseDescription(
                 descriptionContent = description,
                 onDescriptionChange = {
@@ -156,7 +167,7 @@ fun ExpensesDetailScreen(
                         amount = price,
                         category = ExpenseCategory.valueOf(expenseCategory),
                         description = description,
-                        date = LocalDate.parse(date)
+                        date = LocalDate.parse(selectedDate)
                     )
                     val expenseFromEdit = expenseToEdit?.id?.let { expense.copy(id = it) }
                     addExpenseAndNavigateBack(expenseFromEdit ?: expense)
@@ -326,11 +337,11 @@ private fun ExpenseTypeSelector(
         ) {
             Text(
                 modifier = Modifier
-                    .weight(1f),
+                    .weight(1f).padding(start = 8.dp),
                 text = categorySelected,
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Normal,
-                color = colors.textColor
+                color = if(categorySelected != "Seleccioná una categoría") colors.textColor else Color.Gray
             )
 
             IconButton(
@@ -400,7 +411,7 @@ fun ExpenseDescription(
                     unfocusedIndicatorColor = Color.Transparent,
                     unfocusedLabelColor = Color.Transparent
                 ),
-                textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Normal),
+                textStyle = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Normal),
                 keyboardActions = KeyboardActions(
                     onDone = {
                         keyboardController?.hide()
@@ -444,5 +455,116 @@ private fun CategoryItem(category: ExpenseCategory, onCategorySelected: (Expense
             contentScale = ContentScale.Crop
         )
         Text(text = category.displayName.uppercase())
+    }
+}
+
+@Composable
+fun WheelDatePickerBottomSheet(
+    onDateSelected: (LocalDate) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val colors = getColorsTheme()
+
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        color = colors.cardColor,
+        shape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp),
+        tonalElevation = 4.dp,
+        shadowElevation = 4.dp
+    ) {
+        WheelDatePickerView(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 22.dp, bottom = 26.dp),
+            showDatePicker = true,
+            title = "Seleccionar fecha",
+            doneLabel = "Aceptar",
+            titleStyle = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = colors.textColor
+            ),
+            doneLabelStyle = TextStyle(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = colors.buttonEditAddColor
+            ),
+            dateTextColor = colors.textColor,
+            selectorProperties = WheelPickerDefaults.selectorProperties(
+                borderColor = colors.stoneBeige
+            ),
+            rowCount = 3,
+            height = 180.dp,
+            dateTextStyle = TextStyle(
+                fontWeight = FontWeight.SemiBold,
+                color = colors.textColor
+            ),
+            dragHandle = {
+                HorizontalDivider(
+                    modifier = Modifier
+                        .padding(top = 8.dp)
+                        .width(50.dp)
+                        .clip(CircleShape),
+                    thickness = 4.dp,
+                    color = colors.stoneBeige
+                )
+            },
+            shape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp),
+            dateTimePickerView = DateTimePickerView.BOTTOM_SHEET_VIEW,
+            onDoneClick = {
+                onDateSelected(it)
+            },
+            onDismiss = {
+                onDismiss()
+            },
+        )
+    }
+}
+
+@Composable
+fun DateSelectorField(
+    selectedDate: String,
+    onDateSelected: (String) -> Unit
+) {
+    val colors = getColorsTheme()
+    var showPicker by remember { mutableStateOf(false) }
+
+    Column(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+        Text(
+            text = "Fecha",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color.DarkGray,
+            modifier = Modifier.padding(bottom = 4.dp)
+        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color.White)
+                .border(BorderStroke(1.dp, Color.LightGray), shape = RoundedCornerShape(16.dp))
+                .clickable { showPicker = true }
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = if (selectedDate.isNotEmpty()) formatDateString(selectedDate) else "Seleccioná una fecha",
+                fontSize = 18.sp,
+                color = if (selectedDate.isNotEmpty()) colors.textColor else Color.Gray
+            )
+        }
+    }
+
+    if (showPicker) {
+        WheelDatePickerBottomSheet(
+            onDateSelected = {
+                onDateSelected(it.toString())
+                showPicker = false
+            },
+            onDismiss = { showPicker = false }
+        )
     }
 }
