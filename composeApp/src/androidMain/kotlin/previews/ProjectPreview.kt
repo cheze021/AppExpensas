@@ -14,6 +14,7 @@ import ui.ViewAllExpensesScreen
 import ui.ExpensesItem
 import ui.ExpensesScreen
 import ui.ExpensesTotalHeader
+import ui.FinancialBalanceScreen
 import ui.TotalExpensesValue
 
 @Preview(showBackground = true)
@@ -84,5 +85,14 @@ private fun ExpensesGraphicScreenPreview() {
             expenses = ExpenseManager.fakeExpenseList,
             total = 0.0
         )
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FinancialBalanceScreenPreview() {
+    FinancialBalanceScreen(
+        ingresos = 41200.00,
+        gastos = 17500.00
     )
 }
